@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details - VacationStay</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        /* Property Page Specific Styles */
+        .property-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--surface);
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            transition: all 0.2s ease;
+        }
+        
+        .back-btn:hover {
+            background-color: var(--border);
+        }
+        
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-rows: repeat(2, 200px);
+            gap: 0.5rem;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .gallery-main {
+            grid-row: span 2;
+            cursor: pointer;
+        }
+        
+        .gallery-item {
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Property Layout */
+        .property-layout {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 3rem;
+        }
+        
+        .property-info {
+            padding-right: 1rem;
+        }
+        
+        .property-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .property-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .property-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-muted);
+            font-size: 0.9375rem;
+        }
+        
+        .property-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .property-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        
+        .property-rating i {
+            color: var(--brand-blue);
+        }
+        
+        /* Host Section */
+        .host-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .host-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background-color: var(--brand-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .host-info h3 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .host-info p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+        
+        .superhost-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            background-color: var(--surface);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-left: 0.5rem;
+        }
+        
+        /* Description */
+        .property-description {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .description-text {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        
+        /* Amenities */
+        .amenities-section {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9375rem;
+        }
+        
+        .amenity-item i {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+        }
+        
+        /* Booking Box */
+        .booking-box {
+            position: sticky;
+            top: calc(var(--header-height) + 1.5rem);
+            background-color: var(--background);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .booking-price {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .booking-price .amount {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+        
+        .booking-price .period {
+            color: var(--text-muted);
+        }
+        
+        .booking-dates {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .date-field {
+            padding: 0.75rem 1rem;
+        }
+        
+        .date-field:first-child {
+            border-right: 1px solid var(--border);
+        }
+        
+        .date-field label {
+            display: block;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+        
+        .date-field input {
+            width: 100%;
+            border: none;
+            font-size: 0.9375rem;
+            outline: none;
+            background: transparent;
+        }
+        
+        .guests-field {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+        
+        .guests-field label {
+            display: block;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+        
+        .guests-display {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.9375rem;
+        }
+        
+        .reserve-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(to right, var(--brand-blue), #1d4ed8);
+            color: white;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            margin-bottom: 1rem;
+        }
+        
+        .reserve-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .booking-note {
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+        
+        .price-breakdown {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 0.9375rem;
+        }
+        
+        .price-row.total {
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
+            font-weight: 600;
+        }
+        
+        /* Gallery Modal */
+        .gallery-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 300;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .gallery-modal.show {
+            display: flex;
+        }
+        
+        .gallery-modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 48px;
+            height: 48px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.2s ease;
+        }
+        
+        .gallery-modal-close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .gallery-modal-content {
+            max-width: 90%;
+            max-height: 80vh;
+        }
+        
+        .gallery-modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: var(--radius);
+        }
+        
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            background-color: var(--background);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.2s ease;
+        }
+        
+        .gallery-nav:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .gallery-nav.prev {
+            left: 2rem;
+        }
+        
+        .gallery-nav.next {
+            right: 2rem;
+        }
+        
+        .gallery-counter {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 0.9375rem;
+        }
+        
+        /* Save Button */
+        .property-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: auto;
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .action-btn:hover {
+            background-color: var(--surface);
+        }
+        
+        .action-btn.saved {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .property-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .booking-box {
+                position: relative;
+                top: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                grid-template-rows: 250px;
+            }
+            
+            .gallery-main {
+                grid-row: span 1;
+            }
+            
+            .gallery-item:not(.gallery-main) {
+                display: none;
+            }
+            
+            .property-title {
+                font-size: 1.5rem;
+            }
+            
+            .property-meta {
+                flex-wrap: wrap;
+            }
+            
+            .amenities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <!-- Logo -->
+            <a href="index.html" class="logo" data-testid="logo">
+                <div class="logo-icon">
+                    <i class="ph ph-house"></i>
+                </div>
+                <span>VacationStay</span>
+            </a>
+            
+            <!-- Header Nav -->
+            <nav class="header-nav">
+                <button class="nav-btn" data-testid="tripboard-btn">Tripboard</button>
+                <button class="nav-btn" data-testid="list-property-btn">List your property</button>
+                <button class="nav-btn" data-testid="help-btn">Help</button>
+                <button class="nav-btn" data-testid="my-trips-btn">My Trips</button>
+                <button class="nav-btn primary" id="signInBtn" data-testid="sign-in-btn">Sign in</button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="property-page">
+        <a href="index.html" class="back-btn" data-testid="back-btn">
+            <i class="ph ph-arrow-left"></i>
+            Back to listings
+        </a>
+        
+        <!-- Gallery -->
+        <div class="gallery" id="gallery" data-testid="gallery">
+            <!-- Gallery images will be rendered here -->
+        </div>
+        
+        <!-- Property Layout -->
+        <div class="property-layout">
+            <!-- Property Info -->
+            <div class="property-info">
+                <div class="property-header">
+                    <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+                        <div>
+                            <h1 class="property-title" id="propertyTitle" data-testid="property-title"></h1>
+                            <div class="property-meta">
+                                <span id="propertyLocation" data-testid="property-location"></span>
+                                <span class="property-rating" data-testid="property-rating">
+                                    <i class="ph-fill ph-star"></i>
+                                    <span id="propertyRating"></span>
+                                    <span id="propertyReviews" style="color: var(--text-muted); font-weight: normal;"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="property-actions">
+                            <button class="action-btn" id="shareBtn" data-testid="share-btn">
+                                <i class="ph ph-share-network"></i>
+                                Share
+                            </button>
+                            <button class="action-btn" id="savePropertyBtn" data-testid="save-property-btn">
+                                <i class="ph ph-heart"></i>
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Host Section -->
+                <div class="host-section">
+                    <div class="host-avatar" id="hostAvatar"></div>
+                    <div class="host-info">
+                        <h3>Hosted by <span id="hostName"></span>
+                            <span class="superhost-badge" id="superhostBadge" style="display: none;">
+                                <i class="ph ph-medal"></i> Superhost
+                            </span>
+                        </h3>
+                        <p id="hostDetails"></p>
+                    </div>
+                </div>
+                
+                <!-- Description -->
+                <div class="property-description">
+                    <h2 class="section-title">About this place</h2>
+                    <p class="description-text" id="propertyDescription" data-testid="property-description"></p>
+                </div>
+                
+                <!-- Amenities -->
+                <div class="amenities-section">
+                    <h2 class="section-title">What this place offers</h2>
+                    <div class="amenities-grid" id="amenitiesGrid" data-testid="amenities-grid">
+                        <!-- Amenities will be rendered here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Booking Box -->
+            <div class="booking-box" data-testid="booking-box">
+                <div class="booking-price">
+                    <span class="amount" id="bookingPrice"></span>
+                    <span class="period">/ night</span>
+                </div>
+                
+                <div class="booking-dates">
+                    <div class="date-field">
+                        <label>Check-in</label>
+                        <input type="date" id="checkIn" data-testid="check-in">
+                    </div>
+                    <div class="date-field">
+                        <label>Check-out</label>
+                        <input type="date" id="checkOut" data-testid="check-out">
+                    </div>
+                </div>
+                
+                <div class="guests-field" id="guestsField" data-testid="guests-field">
+                    <label>Guests</label>
+                    <div class="guests-display">
+                        <span id="guestsText">1 guest</span>
+                        <i class="ph ph-caret-down"></i>
+                    </div>
+                </div>
+                
+                <button class="reserve-btn" id="reserveBtn" data-testid="reserve-btn">Reserve</button>
+                
+                <p class="booking-note">You won't be charged yet</p>
+                
+                <div class="price-breakdown" id="priceBreakdown">
+                    <div class="price-row">
+                        <span><span id="priceNights"></span></span>
+                        <span id="nightsTotal"></span>
+                    </div>
+                    <div class="price-row">
+                        <span>Cleaning fee</span>
+                        <span id="cleaningFee"></span>
+                    </div>
+                    <div class="price-row">
+                        <span>Service fee</span>
+                        <span id="serviceFee"></span>
+                    </div>
+                    <div class="price-row total">
+                        <span>Total</span>
+                        <span id="totalPrice"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Gallery Modal -->
+    <div class="gallery-modal" id="galleryModal" data-testid="gallery-modal">
+        <button class="gallery-modal-close" id="closeGallery">
+            <i class="ph ph-x"></i>
+        </button>
+        <button class="gallery-nav prev" id="prevImage">
+            <i class="ph ph-caret-left"></i>
+        </button>
+        <div class="gallery-modal-content">
+            <img src="" alt="" id="modalImage">
+        </div>
+        <button class="gallery-nav next" id="nextImage">
+            <i class="ph ph-caret-right"></i>
+        </button>
+        <div class="gallery-counter">
+            <span id="currentImageIndex">1</span> / <span id="totalImages">3</span>
+        </div>
+    </div>
+    
+    <!-- Guest Modal -->
+    <div class="modal" id="guestModal" data-testid="guest-modal-property">
+        <div class="modal-header">
+            <h3>Guests</h3>
+            <button class="close-modal-btn" data-close="guestModal">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+        <div class="modal-content">
+            <div class="guest-selector">
+                <div class="guest-row">
+                    <div class="guest-info">
+                        <h4>Adults</h4>
+                        <p>Ages 13 or above</p>
+                    </div>
+                    <div class="guest-counter">
+                        <button class="counter-btn" data-action="decrease" data-type="adults" disabled>
+                            <i class="ph ph-minus"></i>
+                        </button>
+                        <span class="guest-count" id="adultsCount">1</span>
+                        <button class="counter-btn" data-action="increase" data-type="adults">
+                            <i class="ph ph-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="guest-row">
+                    <div class="guest-info">
+                        <h4>Children</h4>
+                        <p>Ages 2-12</p>
+                    </div>
+                    <div class="guest-counter">
+                        <button class="counter-btn" data-action="decrease" data-type="children" disabled>
+                            <i class="ph ph-minus"></i>
+                        </button>
+                        <span class="guest-count" id="childrenCount">0</span>
+                        <button class="counter-btn" data-action="increase" data-type="children">
+                            <i class="ph ph-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button class="modal-btn" id="applyGuests" data-testid="apply-guests-property">Apply</button>
+        </div>
+    </div>
+    
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Toast -->
+    <div class="toast" id="toast" data-testid="toast">
+        <span id="toastMessage"></span>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script>
+        // State
+        let currentProperty = null;
+        let currentImageIndex = 0;
+        let guests = { adults: 1, children: 0 };
+        let savedProperties = JSON.parse(localStorage.getItem('savedProperties')) || [];
+        
+        // Amenity icons mapping
+        const amenityIcons = {
+            'WiFi': 'ph-wifi-high',
+            'Pool': 'ph-swimming-pool',
+            'Beach Access': 'ph-waves',
+            'Air Conditioning': 'ph-snowflake',
+            'Kitchen': 'ph-cooking-pot',
+            'Parking': 'ph-car',
+            'TV': 'ph-television',
+            'Washer': 'ph-t-shirt',
+            'Hot Tub': 'ph-bathtub',
+            'BBQ Grill': 'ph-fire',
+            'Fireplace': 'ph-flame',
+            'Garden': 'ph-tree',
+            'Mountain Views': 'ph-mountains',
+            'Lake Access': 'ph-boat',
+            'Kayaks': 'ph-boat',
+            'Private Dock': 'ph-anchor',
+            'Ocean Views': 'ph-waves',
+            'City Views': 'ph-buildings',
+            'Sea Views': 'ph-waves',
+            'Heating': 'ph-thermometer-hot',
+            'Elevator': 'ph-elevator',
+            'Workspace': 'ph-desktop',
+            'Gym Access': 'ph-barbell',
+            'Terrace': 'ph-house-line',
+            'Balcony': 'ph-house-line',
+            'Game Room': 'ph-game-controller',
+            'Sauna': 'ph-drop-half-bottom',
+            'Play Area': 'ph-baby',
+            'Deck': 'ph-house-line',
+            'Hiking Access': 'ph-path'
+        };
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProperty();
+            initializeEventListeners();
+        });
+        
+        function loadProperty() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const propertyId = parseInt(urlParams.get('id'));
+            
+            currentProperty = properties.find(p => p.id === propertyId);
+            
+            if (!currentProperty) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            renderProperty();
+        }
+        
+        function renderProperty() {
+            // Update page title
+            document.title = `${currentProperty.title} - VacationStay`;
+            
+            // Gallery
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = currentProperty.images.map((img, index) => `
+                <div class="gallery-item ${index === 0 ? 'gallery-main' : ''}" data-index="${index}">
+                    <img src="${img}" alt="${currentProperty.title}">
+                </div>
+            `).join('');
+            
+            // Property details
+            document.getElementById('propertyTitle').textContent = currentProperty.title;
+            document.getElementById('propertyLocation').innerHTML = `<i class="ph ph-map-pin"></i> ${currentProperty.location}`;
+            document.getElementById('propertyRating').textContent = currentProperty.rating;
+            document.getElementById('propertyReviews').textContent = `(${currentProperty.reviews} reviews)`;
+            document.getElementById('propertyDescription').textContent = currentProperty.description;
+            
+            // Host info
+            const hostName = generateHostName();
+            document.getElementById('hostAvatar').textContent = hostName.charAt(0);
+            document.getElementById('hostName').textContent = hostName;
+            document.getElementById('hostDetails').textContent = `${currentProperty.bedrooms} bedrooms · ${currentProperty.guests} guests`;
+            
+            if (currentProperty.superhost) {
+                document.getElementById('superhostBadge').style.display = 'inline-flex';
+            }
+            
+            // Amenities
+            const amenitiesGrid = document.getElementById('amenitiesGrid');
+            amenitiesGrid.innerHTML = currentProperty.amenities.map(amenity => `
+                <div class="amenity-item">
+                    <i class="ph ${amenityIcons[amenity] || 'ph-check'}"></i>
+                    <span>${amenity}</span>
+                </div>
+            `).join('');
+            
+            // Booking box
+            document.getElementById('bookingPrice').textContent = `£${currentProperty.pricePerNight}`;
+            
+            // Set default dates
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const nextWeek = new Date(today);
+            nextWeek.setDate(nextWeek.getDate() + 7);
+            
+            document.getElementById('checkIn').value = formatDate(tomorrow);
+            document.getElementById('checkOut').value = formatDate(nextWeek);
+            
+            updatePriceBreakdown();
+            
+            // Check if saved
+            updateSaveButton();
+        }
+        
+        function generateHostName() {
+            const names = ['Sarah', 'James', 'Emma', 'Michael', 'Olivia', 'William', 'Sophia', 'Alexander'];
+            return names[currentProperty.id % names.length];
+        }
+        
+        function formatDate(date) {
+            return date.toISOString().split('T')[0];
+        }
+        
+        function updatePriceBreakdown() {
+            const checkIn = new Date(document.getElementById('checkIn').value);
+            const checkOut = new Date(document.getElementById('checkOut').value);
+            
+            if (checkIn >= checkOut) return;
+            
+            const nights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+            const nightsTotal = currentProperty.pricePerNight * nights;
+            const cleaningFee = Math.round(currentProperty.pricePerNight * 0.15);
+            const serviceFee = Math.round(nightsTotal * 0.12);
+            const total = nightsTotal + cleaningFee + serviceFee;
+            
+            document.getElementById('priceNights').textContent = `£${currentProperty.pricePerNight} x ${nights} nights`;
+            document.getElementById('nightsTotal').textContent = `£${nightsTotal}`;
+            document.getElementById('cleaningFee').textContent = `£${cleaningFee}`;
+            document.getElementById('serviceFee').textContent = `£${serviceFee}`;
+            document.getElementById('totalPrice').textContent = `£${total}`;
+        }
+        
+        function updateGuestsText() {
+            const total = guests.adults + guests.children;
+            let text = `${guests.adults} adult${guests.adults > 1 ? 's' : ''}`;
+            if (guests.children > 0) {
+                text += `, ${guests.children} child${guests.children > 1 ? 'ren' : ''}`;
+            }
+            document.getElementById('guestsText').textContent = text;
+        }
+        
+        function updateSaveButton() {
+            const btn = document.getElementById('savePropertyBtn');
+            const isSaved = savedProperties.includes(currentProperty.id);
+            
+            if (isSaved) {
+                btn.classList.add('saved');
+                btn.innerHTML = '<i class="ph-fill ph-heart"></i> Saved';
+            } else {
+                btn.classList.remove('saved');
+                btn.innerHTML = '<i class="ph ph-heart"></i> Save';
+            }
+        }
+        
+        function initializeEventListeners() {
+            // Gallery clicks
+            document.getElementById('gallery').addEventListener('click', (e) => {
+                const item = e.target.closest('.gallery-item');
+                if (item) {
+                    currentImageIndex = parseInt(item.dataset.index);
+                    openGalleryModal();
+                }
+            });
+            
+            // Gallery modal navigation
+            document.getElementById('closeGallery').addEventListener('click', closeGalleryModal);
+            document.getElementById('prevImage').addEventListener('click', () => navigateGallery(-1));
+            document.getElementById('nextImage').addEventListener('click', () => navigateGallery(1));
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (document.getElementById('galleryModal').classList.contains('show')) {
+                    if (e.key === 'ArrowLeft') navigateGallery(-1);
+                    if (e.key === 'ArrowRight') navigateGallery(1);
+                    if (e.key === 'Escape') closeGalleryModal();
+                }
+            });
+            
+            // Date changes
+            document.getElementById('checkIn').addEventListener('change', updatePriceBreakdown);
+            document.getElementById('checkOut').addEventListener('change', updatePriceBreakdown);
+            
+            // Guests field
+            document.getElementById('guestsField').addEventListener('click', () => {
+                toggleModal('guestModal');
+            });
+            
+            // Guest counter
+            document.querySelectorAll('.counter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const action = btn.dataset.action;
+                    const type = btn.dataset.type;
+                    const countEl = document.getElementById(`${type}Count`);
+                    let count = parseInt(countEl.textContent);
+                    
+                    if (action === 'increase') {
+                        count++;
+                    } else if (action === 'decrease' && count > 0) {
+                        count--;
+                    }
+                    
+                    countEl.textContent = count;
+                    guests[type] = count;
+                    
+                    // Update button states
+                    const decreaseBtn = btn.parentElement.querySelector('[data-action="decrease"]');
+                    if (type === 'adults') {
+                        decreaseBtn.disabled = count <= 1;
+                    } else {
+                        decreaseBtn.disabled = count <= 0;
+                    }
+                });
+            });
+            
+            document.getElementById('applyGuests').addEventListener('click', () => {
+                updateGuestsText();
+                toggleModal('guestModal');
+            });
+            
+            // Close modals
+            document.querySelectorAll('.close-modal-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    toggleModal(btn.dataset.close);
+                });
+            });
+            
+            document.getElementById('overlay').addEventListener('click', () => {
+                document.querySelectorAll('.modal').forEach(m => m.classList.remove('show'));
+                document.getElementById('overlay').classList.remove('show');
+            });
+            
+            // Reserve button
+            document.getElementById('reserveBtn').addEventListener('click', () => {
+                const checkIn = document.getElementById('checkIn').value;
+                const checkOut = document.getElementById('checkOut').value;
+                const total = document.getElementById('totalPrice').textContent;
+                
+                alert(`Reservation Request Submitted!\n\nProperty: ${currentProperty.title}\nCheck-in: ${checkIn}\nCheck-out: ${checkOut}\nGuests: ${guests.adults + guests.children}\nTotal: ${total}\n\nYou will receive a confirmation email shortly.`);
+            });
+            
+            // Save button
+            document.getElementById('savePropertyBtn').addEventListener('click', () => {
+                const index = savedProperties.indexOf(currentProperty.id);
+                if (index > -1) {
+                    savedProperties.splice(index, 1);
+                    showToast('Removed from saved');
+                } else {
+                    savedProperties.push(currentProperty.id);
+                    showToast('Saved to tripboard');
+                }
+                localStorage.setItem('savedProperties', JSON.stringify(savedProperties));
+                updateSaveButton();
+            });
+            
+            // Share button
+            document.getElementById('shareBtn').addEventListener('click', () => {
+                if (navigator.share) {
+                    navigator.share({
+                        title: currentProperty.title,
+                        text: `Check out this amazing property on VacationStay!`,
+                        url: window.location.href
+                    });
+                } else {
+                    navigator.clipboard.writeText(window.location.href);
+                    showToast('Link copied to clipboard!');
+                }
+            });
+        }
+        
+        function openGalleryModal() {
+            const modal = document.getElementById('galleryModal');
+            const img = document.getElementById('modalImage');
+            
+            img.src = currentProperty.images[currentImageIndex];
+            img.alt = currentProperty.title;
+            document.getElementById('currentImageIndex').textContent = currentImageIndex + 1;
+            document.getElementById('totalImages').textContent = currentProperty.images.length;
+            
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeGalleryModal() {
+            document.getElementById('galleryModal').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+        
+        function navigateGallery(direction) {
+            currentImageIndex += direction;
+            
+            if (currentImageIndex < 0) {
+                currentImageIndex = currentProperty.images.length - 1;
+            } else if (currentImageIndex >= currentProperty.images.length) {
+                currentImageIndex = 0;
+            }
+            
+            const img = document.getElementById('modalImage');
+            img.src = currentProperty.images[currentImageIndex];
+            document.getElementById('currentImageIndex').textContent = currentImageIndex + 1;
+        }
+        
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const overlay = document.getElementById('overlay');
+            
+            modal.classList.toggle('show');
+            overlay.classList.toggle('show');
+        }
+        
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

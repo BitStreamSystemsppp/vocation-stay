@@ -1,0 +1,353 @@
+// Property data for VacationStay
+const properties = [
+    {
+        id: 1,
+        title: "Modern Beachfront Villa",
+        location: "Malibu, California",
+        coordinates: { lat: 34.0259, lng: -118.7798 },
+        bedrooms: 4,
+        guests: 8,
+        pricePerNight: 450,
+        rating: 4.9,
+        reviews: 128,
+        distance: 0.2,
+        distanceText: "0.2 miles from beach",
+        description: "Experience luxury living in this stunning beachfront villa with panoramic ocean views. Wake up to the sound of waves and enjoy breathtaking sunsets from your private terrace. This modern retreat features floor-to-ceiling windows, a gourmet kitchen, and direct beach access.",
+        amenities: ["WiFi", "Pool", "Beach Access", "Air Conditioning", "Kitchen", "Parking", "TV", "Washer", "Hot Tub", "BBQ Grill"],
+        images: [
+            "https://images.unsplash.com/photo-1762640044491-99634d38c619?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1760067538263-fb7126fe748c?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1657020924957-dc8cb859721f?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
+        ],
+        type: "Villa",
+        superhost: true,
+        guestFavorite: true
+    },
+    {
+        id: 2,
+        title: "Charming Cotswolds Cottage",
+        location: "Cotswolds, UK",
+        coordinates: { lat: 51.8330, lng: -1.8433 },
+        bedrooms: 2,
+        guests: 4,
+        pricePerNight: 150,
+        rating: 4.8,
+        reviews: 95,
+        distance: 5,
+        distanceText: "5 miles from village center",
+        description: "Escape to the English countryside in this charming stone cottage. Nestled in the heart of the Cotswolds, enjoy rolling hills, quaint villages, and cozy evenings by the fireplace. Perfect for romantic getaways or family retreats.",
+        amenities: ["WiFi", "Fireplace", "Garden", "Kitchen", "Parking", "TV", "Washer", "Heating"],
+        images: [
+            "https://images.unsplash.com/photo-1768169209714-ab207f265363?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1759148539722-1bbcd7b32d1e?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1749063651872-99beaeb6dde1?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
+        ],
+        type: "Cottage",
+        superhost: true,
+        guestFavorite: false
+    },
+    {
+        id: 3,
+        title: "Luxury Mountain Cabin",
+        location: "Lake District, UK",
+        coordinates: { lat: 54.4609, lng: -3.0886 },
+        bedrooms: 3,
+        guests: 6,
+        pricePerNight: 320,
+        rating: 4.95,
+        reviews: 156,
+        distance: 1.5,
+        distanceText: "1.5 miles from lake",
+        description: "A stunning mountain retreat with breathtaking views of the Lake District. This luxury cabin features modern amenities while maintaining rustic charm. Enjoy hiking trails, serene lakes, and stargazing from the private deck.",
+        amenities: ["WiFi", "Hot Tub", "Mountain Views", "Kitchen", "Parking", "TV", "Fireplace", "Deck", "Hiking Access"],
+        images: [
+            "https://images.unsplash.com/photo-1768169209714-ab207f265363?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1761429570013-562eedc9d734?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1749063651872-99beaeb6dde1?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
+        ],
+        type: "Cabin",
+        superhost: true,
+        guestFavorite: true
+    },
+    {
+        id: 4,
+        title: "Bright City Apartment",
+        location: "London, UK",
+        coordinates: { lat: 51.5074, lng: -0.1278 },
+        bedrooms: 1,
+        guests: 2,
+        pricePerNight: 180,
+        rating: 4.7,
+        reviews: 89,
+        distance: 0.3,
+        distanceText: "0.3 miles from tube station",
+        description: "Modern apartment in the heart of London. Walking distance to major attractions, restaurants, and shops. Features a fully equipped kitchen, comfortable workspace, and stunning city views.",
+        amenities: ["WiFi", "Air Conditioning", "Kitchen", "TV", "Washer", "Elevator", "Workspace"],
+        images: [
+            "https://images.unsplash.com/photo-1638454795595-0a0abf68614d?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1638454668466-e8dbd5462f20?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1767403010227-b991d981ae8f?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
+        ],
+        type: "Apartment",
+        superhost: false,
+        guestFavorite: false
+    },
+    {
+        id: 5,
+        title: "Cozy Lakeside Retreat",
+        location: "Windermere, UK",
+        coordinates: { lat: 54.3806, lng: -2.9039 },
+        bedrooms: 3,
+        guests: 6,
+        pricePerNight: 250,
+        rating: 4.85,
+        reviews: 112,
+        distance: 0.1,
+        distanceText: "0.1 miles from lake",
+        description: "Wake up to serene lake views in this beautifully renovated lakeside home. Features a private dock, kayaks for guest use, and a cozy interior perfect for relaxation after a day of water activities.",
+        amenities: ["WiFi", "Lake Access", "Kayaks", "Kitchen", "Parking", "TV", "Fireplace", "Private Dock", "BBQ"],
+        images: [
+            "https://images.unsplash.com/photo-1760216455382-4220cf300a49?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1662054728179-e1cd398e86f1?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1761549148430-85b7abf00f33?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
+        ],
+        type: "House",
+        superhost: true,
+        guestFavorite: true
+    },
+    {
+        id: 6,
+        title: "Sea View Villa",
+        location: "Cornwall, UK",
+        coordinates: { lat: 50.2660, lng: -5.0527 },
+        bedrooms: 4,
+        guests: 8,
+        pricePerNight: 380,
+        rating: 4.92,
+        reviews: 78,
+        distance: 0.5,
+        distanceText: "0.5 miles from beach",
+        description: "Spectacular cliff-top villa with panoramic views of the Cornish coast. Features a heated infinity pool, spacious living areas, and easy access to pristine beaches and coastal walking paths.",
+        amenities: ["WiFi", "Pool", "Ocean Views", "Kitchen", "Parking", "TV", "Hot Tub", "Garden", "Beach Access"],
+        images: [
+            "https://images.pexels.com/photos/29334712/pexels-photo-29334712.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+            "https://images.pexels.com/photos/29334698/pexels-photo-29334698.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+            "https://images.unsplash.com/photo-1719008681382-80f90b7fe55c?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
+        ],
+        type: "Villa",
+        superhost: true,
+        guestFavorite: false
+    },
+    {
+        id: 7,
+        title: "Highland Lodge",
+        location: "Scottish Highlands, UK",
+        coordinates: { lat: 57.4596, lng: -4.2264 },
+        bedrooms: 5,
+        guests: 10,
+        pricePerNight: 520,
+        rating: 4.88,
+        reviews: 64,
+        distance: 25,
+        distanceText: "Remote location",
+        description: "Experience true wilderness in this magnificent Highland lodge. Surrounded by mountains, lochs, and ancient forests. Perfect for large groups seeking adventure and tranquility.",
+        amenities: ["WiFi", "Hot Tub", "Mountain Views", "Kitchen", "Parking", "Fireplace", "Game Room", "Sauna"],
+        images: [
+            "https://images.unsplash.com/photo-1768169209714-ab207f265363?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1759148539722-1bbcd7b32d1e?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1761429570013-562eedc9d734?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
+        ],
+        type: "Lodge",
+        superhost: true,
+        guestFavorite: true
+    },
+    {
+        id: 8,
+        title: "Manchester Loft",
+        location: "Manchester, UK",
+        coordinates: { lat: 53.4808, lng: -2.2426 },
+        bedrooms: 2,
+        guests: 4,
+        pricePerNight: 145,
+        rating: 4.6,
+        reviews: 203,
+        distance: 0.2,
+        distanceText: "City center",
+        description: "Industrial-chic loft in a converted warehouse. High ceilings, exposed brick, and modern furnishings. Walking distance to Northern Quarter restaurants and nightlife.",
+        amenities: ["WiFi", "Air Conditioning", "Kitchen", "TV", "Washer", "Workspace", "Gym Access"],
+        images: [
+            "https://images.unsplash.com/photo-1638454795595-0a0abf68614d?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1767403010227-b991d981ae8f?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.pexels.com/photos/3754595/pexels-photo-3754595.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        ],
+        type: "Apartment",
+        superhost: false,
+        guestFavorite: false
+    },
+    {
+        id: 9,
+        title: "Devon Farmhouse",
+        location: "Devon, UK",
+        coordinates: { lat: 50.7156, lng: -3.5309 },
+        bedrooms: 4,
+        guests: 8,
+        pricePerNight: 275,
+        rating: 4.82,
+        reviews: 91,
+        distance: 2,
+        distanceText: "2 miles from village",
+        description: "Beautifully restored farmhouse set in rolling Devon countryside. Features original beams, a modern kitchen, and acres of private gardens. Perfect for family gatherings.",
+        amenities: ["WiFi", "Garden", "Kitchen", "Parking", "TV", "Fireplace", "BBQ", "Play Area"],
+        images: [
+            "https://images.pexels.com/photos/32815889/pexels-photo-32815889.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+            "https://images.unsplash.com/photo-1760216455382-4220cf300a49?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.pexels.com/photos/175790/pexels-photo-175790.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        ],
+        type: "Farmhouse",
+        superhost: true,
+        guestFavorite: false
+    },
+    {
+        id: 10,
+        title: "Edinburgh Penthouse",
+        location: "Edinburgh, UK",
+        coordinates: { lat: 55.9533, lng: -3.1883 },
+        bedrooms: 3,
+        guests: 6,
+        pricePerNight: 350,
+        rating: 4.94,
+        reviews: 67,
+        distance: 0.4,
+        distanceText: "Old Town",
+        description: "Luxurious penthouse with views of Edinburgh Castle. Elegant interiors, rooftop terrace, and prime location for exploring the historic city. Walking distance to Royal Mile.",
+        amenities: ["WiFi", "City Views", "Kitchen", "TV", "Washer", "Terrace", "Elevator", "Parking"],
+        images: [
+            "https://images.unsplash.com/photo-1638454668466-e8dbd5462f20?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1638454795595-0a0abf68614d?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1767403010227-b991d981ae8f?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
+        ],
+        type: "Penthouse",
+        superhost: true,
+        guestFavorite: true
+    },
+    {
+        id: 11,
+        title: "Welsh Valley Cottage",
+        location: "Snowdonia, UK",
+        coordinates: { lat: 52.9154, lng: -3.8705 },
+        bedrooms: 2,
+        guests: 4,
+        pricePerNight: 165,
+        rating: 4.75,
+        reviews: 83,
+        distance: 3,
+        distanceText: "Near hiking trails",
+        description: "Cozy stone cottage in the heart of Snowdonia National Park. Ideal base for hikers and nature lovers. Traditional Welsh character with modern comforts.",
+        amenities: ["WiFi", "Mountain Views", "Kitchen", "Parking", "Fireplace", "Garden", "Hiking Access"],
+        images: [
+            "https://images.unsplash.com/photo-1749063651872-99beaeb6dde1?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1768169209714-ab207f265363?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1763568300140-a82f33a64d8d?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
+        ],
+        type: "Cottage",
+        superhost: false,
+        guestFavorite: false
+    },
+    {
+        id: 12,
+        title: "Brighton Seafront Flat",
+        location: "Brighton, UK",
+        coordinates: { lat: 50.8225, lng: -0.1372 },
+        bedrooms: 2,
+        guests: 4,
+        pricePerNight: 195,
+        rating: 4.68,
+        reviews: 124,
+        distance: 0.1,
+        distanceText: "Seafront location",
+        description: "Stylish flat with stunning sea views in vibrant Brighton. Steps from the beach, pier, and famous Lanes shopping area. Perfect for a seaside city break.",
+        amenities: ["WiFi", "Sea Views", "Kitchen", "TV", "Washer", "Balcony"],
+        images: [
+            "https://images.unsplash.com/photo-1638454795595-0a0abf68614d?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.pexels.com/photos/3754595/pexels-photo-3754595.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+            "https://images.unsplash.com/photo-1638454668466-e8dbd5462f20?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
+        ],
+        type: "Apartment",
+        superhost: false,
+        guestFavorite: false
+    },
+    {
+        id: 13,
+        title: "Yorkshire Dales Barn",
+        location: "Yorkshire, UK",
+        coordinates: { lat: 54.2274, lng: -2.2568 },
+        bedrooms: 3,
+        guests: 6,
+        pricePerNight: 220,
+        rating: 4.87,
+        reviews: 56,
+        distance: 3,
+        distanceText: "3 miles from village",
+        description: "Stunning converted barn in the Yorkshire Dales. Original stone walls meet contemporary design. Surrounded by stunning countryside with excellent walking routes.",
+        amenities: ["WiFi", "Garden", "Kitchen", "Parking", "TV", "Fireplace", "Hot Tub", "BBQ"],
+        images: [
+            "https://images.unsplash.com/photo-1761549148430-85b7abf00f33?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1662054728179-e1cd398e86f1?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.pexels.com/photos/175790/pexels-photo-175790.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        ],
+        type: "Barn",
+        superhost: true,
+        guestFavorite: true
+    },
+    {
+        id: 14,
+        title: "Bath Georgian Townhouse",
+        location: "Bath, UK",
+        coordinates: { lat: 51.3811, lng: -2.3590 },
+        bedrooms: 4,
+        guests: 8,
+        pricePerNight: 420,
+        rating: 4.91,
+        reviews: 72,
+        distance: 0.3,
+        distanceText: "City center",
+        description: "Elegant Georgian townhouse in UNESCO World Heritage city of Bath. Period features throughout including original fireplaces and sash windows. Near Roman Baths and Thermae Spa.",
+        amenities: ["WiFi", "Kitchen", "TV", "Washer", "Garden", "Fireplace", "Parking"],
+        images: [
+            "https://images.unsplash.com/photo-1768169209714-ab207f265363?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1638454668466-e8dbd5462f20?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.pexels.com/photos/3754595/pexels-photo-3754595.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        ],
+        type: "Townhouse",
+        superhost: true,
+        guestFavorite: false
+    },
+    {
+        id: 15,
+        title: "Isle of Skye Retreat",
+        location: "Isle of Skye, UK",
+        coordinates: { lat: 57.2736, lng: -6.2155 },
+        bedrooms: 2,
+        guests: 4,
+        pricePerNight: 285,
+        rating: 4.96,
+        reviews: 48,
+        distance: 8,
+        distanceText: "Near Portree",
+        description: "Secluded modern retreat with dramatic views of the Cuillin mountains. Floor-to-ceiling windows bring the stunning Scottish landscape indoors. Perfect for photographers and nature enthusiasts.",
+        amenities: ["WiFi", "Mountain Views", "Kitchen", "Parking", "Heating", "Hot Tub"],
+        images: [
+            "https://images.unsplash.com/photo-1761429570013-562eedc9d734?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1763568300140-a82f33a64d8d?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+            "https://images.unsplash.com/photo-1759148539722-1bbcd7b32d1e?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
+        ],
+        type: "House",
+        superhost: true,
+        guestFavorite: true
+    }
+];
+
+// Export for use in other files
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = properties;
+}

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VacationStay - Find Your Perfect Getaway</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <!-- Logo -->
+            <a href="index.html" class="logo" data-testid="logo">
+                <div class="logo-icon">
+                    <i class="ph ph-house"></i>
+                </div>
+                <span>VacationStay</span>
+            </a>
+            
+            <!-- Search Container -->
+            <div class="search-container">
+                <div class="search-bar" data-testid="search-bar">
+                    <i class="ph ph-magnifying-glass search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search destinations..." data-testid="search-input">
+                </div>
+                
+                <!-- Price Filter -->
+                <div class="filter-dropdown" data-testid="price-filter">
+                    <button class="filter-btn" id="priceFilterBtn">
+                        Price
+                        <i class="ph ph-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content" id="priceDropdown">
+                        <div class="price-range">
+                            <div class="price-inputs">
+                                <div class="price-input">
+                                    <label>Min Price</label>
+                                    <input type="number" id="minPrice" placeholder="£0" value="0" min="0">
+                                </div>
+                                <div class="price-input">
+                                    <label>Max Price</label>
+                                    <input type="number" id="maxPrice" placeholder="£1000" value="1000" min="0">
+                                </div>
+                            </div>
+                            <button class="apply-filters-btn" onclick="applyFilters()" data-testid="apply-price-filter">Apply</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bedrooms Filter -->
+                <div class="filter-dropdown" data-testid="bedrooms-filter">
+                    <button class="filter-btn" id="bedroomsFilterBtn">
+                        Bedrooms
+                        <i class="ph ph-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content" id="bedroomsDropdown">
+                        <div class="bedrooms-selector">
+                            <button class="bedroom-btn active" data-bedrooms="any" data-testid="bedrooms-any">Any</button>
+                            <button class="bedroom-btn" data-bedrooms="1" data-testid="bedrooms-1">1</button>
+                            <button class="bedroom-btn" data-bedrooms="2" data-testid="bedrooms-2">2</button>
+                            <button class="bedroom-btn" data-bedrooms="3" data-testid="bedrooms-3">3</button>
+                            <button class="bedroom-btn" data-bedrooms="4" data-testid="bedrooms-4">4+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Column Switcher -->
+            <div class="column-switcher" data-testid="column-switcher">
+                <button class="column-btn" data-cols="1" data-testid="col-1">1</button>
+                <button class="column-btn active" data-cols="2" data-testid="col-2">2</button>
+                <button class="column-btn" data-cols="3" data-testid="col-3">3</button>
+            </div>
+            
+            <!-- Header Nav -->
+            <nav class="header-nav">
+                <button class="nav-btn" id="filterSidebarBtn" data-testid="filter-btn">
+                    <i class="ph ph-sliders-horizontal"></i>
+                    Filters
+                </button>
+                <button class="nav-btn" id="tripboardBtn" data-testid="tripboard-btn">Tripboard</button>
+                <button class="nav-btn" data-testid="list-property-btn">List your property</button>
+                <button class="nav-btn" data-testid="help-btn">Help</button>
+                <button class="nav-btn" id="myTripsBtn" data-testid="my-trips-btn">My Trips</button>
+                <button class="nav-btn primary" id="signInBtn" data-testid="sign-in-btn">Sign in</button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" data-testid="mobile-menu-btn" aria-label="Open menu">
+                    <i class="ph ph-list"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Listings Section -->
+        <section class="listings-section">
+            <div class="results-header">
+                <h1 class="results-title" data-testid="results-title">Stays near your search</h1>
+                <p class="results-count" data-testid="results-count">Showing <span id="propertyCount">0</span> places</p>
+                
+                <div class="results-controls">
+                    <p class="average-price" data-testid="average-price">
+                        Average price per night: <span id="avgPrice">£0</span>
+                    </p>
+                    
+                    <div class="view-controls">
+                        <div class="view-toggle">
+                            <button class="view-btn" data-view="list" data-testid="view-list" aria-label="List view">
+                                <i class="ph ph-list"></i>
+                            </button>
+                            <button class="view-btn active" data-view="grid" data-testid="view-grid" aria-label="Grid view">
+                                <i class="ph ph-squares-four"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="column-switcher" data-testid="column-switcher-mobile">
+                            <button class="column-btn" data-cols="1">1</button>
+                            <button class="column-btn active" data-cols="2">2</button>
+                            <button class="column-btn" data-cols="3">3</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Properties Grid -->
+            <div class="properties-grid cols-2" id="propertiesGrid" data-testid="properties-grid">
+                <!-- Properties will be rendered here -->
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination" id="pagination" data-testid="pagination">
+                <!-- Pagination will be rendered here -->
+            </div>
+        </section>
+        
+        <!-- Map Section -->
+        <section class="map-section" data-testid="map-section">
+            <div id="map"></div>
+        </section>
+    </main>
+    
+    <!-- Mobile Map Button -->
+    <button class="mobile-map-btn" id="mobileMapBtn" data-testid="mobile-map-btn">
+        <i class="ph ph-map-trifold"></i>
+        Show Map
+    </button>
+    
+    <!-- Mobile Menu (Hamburger Slide-in) -->
+    <aside class="mobile-menu" id="mobileMenu" data-testid="mobile-menu">
+        <div class="mobile-menu-header">
+            <h3>Menu</h3>
+            <button class="close-mobile-menu-btn" id="closeMobileMenu" aria-label="Close menu">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+        <nav class="mobile-menu-content">
+            <a href="#" class="mobile-nav-link" data-action="tripboard" data-testid="mobile-tripboard">
+                <i class="ph ph-heart"></i>
+                Tripboard
+            </a>
+            <a href="#" class="mobile-nav-link" data-testid="mobile-list-property">
+                <i class="ph ph-house-line"></i>
+                List your property
+            </a>
+            <a href="#" class="mobile-nav-link" data-testid="mobile-help">
+                <i class="ph ph-question"></i>
+                Help
+            </a>
+            <a href="#" class="mobile-nav-link" data-testid="mobile-my-trips">
+                <i class="ph ph-suitcase"></i>
+                My Trips
+            </a>
+            <a href="#" class="mobile-nav-link primary" data-action="signin" data-testid="mobile-sign-in">
+                <i class="ph ph-sign-in"></i>
+                Sign in
+            </a>
+        </nav>
+    </aside>
+    
+    <!-- Filter Sidebar -->
+    <aside class="filter-sidebar" id="filterSidebar" data-testid="filter-sidebar">
+        <div class="filter-sidebar-header">
+            <h3>Filters</h3>
+            <button class="close-filter-btn" id="closeFilterBtn" data-testid="close-filter-btn" aria-label="Close filters">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+        
+        <div class="filter-sidebar-content">
+            <!-- Distance Filter -->
+            <div class="filter-group">
+                <h4 class="filter-group-title">
+                    <i class="ph ph-map-pin"></i>
+                    Distance
+                </h4>
+                <div class="distance-filter">
+                    <div class="distance-header">
+                        <span id="distanceValue" class="distance-value">Up to 50 miles</span>
+                    </div>
+                    <input type="range" id="distanceSlider" class="distance-slider" min="1" max="50" value="50" data-testid="distance-slider">
+                    <div class="distance-labels">
+                        <span>1 mile</span>
+                        <span>50 miles</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Price Range -->
+            <div class="filter-group">
+                <h4 class="filter-group-title">
+                    <i class="ph ph-currency-gbp"></i>
+                    Price Range
+                </h4>
+                <div class="price-range">
+                    <div class="price-inputs">
+                        <div class="price-input">
+                            <label>Min</label>
+                            <input type="number" id="sidebarMinPrice" placeholder="£0" value="0" min="0">
+                        </div>
+                        <div class="price-input">
+                            <label>Max</label>
+                            <input type="number" id="sidebarMaxPrice" placeholder="£1000" value="1000" min="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bedrooms -->
+            <div class="filter-group">
+                <h4 class="filter-group-title">
+                    <i class="ph ph-bed"></i>
+                    Bedrooms
+                </h4>
+                <div class="bedrooms-selector" id="sidebarBedrooms">
+                    <button class="bedroom-btn active" data-bedrooms="any">Any</button>
+                    <button class="bedroom-btn" data-bedrooms="1">1</button>
+                    <button class="bedroom-btn" data-bedrooms="2">2</button>
+                    <button class="bedroom-btn" data-bedrooms="3">3</button>
+                    <button class="bedroom-btn" data-bedrooms="4">4+</button>
+                </div>
+            </div>
+            
+            <!-- Property Type -->
+            <div class="filter-group">
+                <h4 class="filter-group-title">
+                    <i class="ph ph-buildings"></i>
+                    Property Type
+                </h4>
+                <div class="property-types" id="propertyTypes">
+                    <button class="type-btn active" data-type="all" data-testid="type-all">All</button>
+                    <button class="type-btn" data-type="Villa" data-testid="type-villa">Villa</button>
+                    <button class="type-btn" data-type="Cottage" data-testid="type-cottage">Cottage</button>
+                    <button class="type-btn" data-type="Cabin" data-testid="type-cabin">Cabin</button>
+                    <button class="type-btn" data-type="Apartment" data-testid="type-apartment">Apartment</button>
+                    <button class="type-btn" data-type="House" data-testid="type-house">House</button>
+                </div>
+            </div>
+            
+            <!-- Rating -->
+            <div class="filter-group">
+                <h4 class="filter-group-title">
+                    <i class="ph ph-star"></i>
+                    Minimum Rating
+                </h4>
+                <div class="rating-options" id="ratingOptions">
+                    <label class="rating-option">
+                        <input type="radio" name="rating" value="0" checked>
+                        <span>All ratings</span>
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="rating" value="4.5">
+                        <span class="rating-stars">
+                            <i class="ph-fill ph-star"></i>
+                            <span>4.5+</span>
+                        </span>
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="rating" value="4.7">
+                        <span class="rating-stars">
+                            <i class="ph-fill ph-star"></i>
+                            <span>4.7+</span>
+                        </span>
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="rating" value="4.9">
+                        <span class="rating-stars">
+                            <i class="ph-fill ph-star"></i>
+                            <span>4.9+</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Filter Buttons -->
+            <div class="filter-buttons">
+                <button class="reset-filters-btn" id="resetSidebarFilters" data-testid="reset-sidebar-filters">
+                    Reset
+                </button>
+                <button class="apply-filters-btn" id="applySidebarFilters" data-testid="apply-sidebar-filters">
+                    Apply Filters
+                </button>
+            </div>
+        </div>
+    </aside>
+    
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Sign In Modal -->
+    <div class="modal" id="signInModal" data-testid="sign-in-modal">
+        <div class="modal-header">
+            <h3>Sign In</h3>
+            <button class="close-modal-btn" data-close="signInModal" aria-label="Close">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+        <div class="modal-content">
+            <form id="signInForm">
+                <div class="form-group">
+                    <label for="signInEmail">Email</label>
+                    <input type="email" id="signInEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signInPassword">Password</label>
+                    <input type="password" id="signInPassword" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="modal-btn" data-testid="sign-in-submit">Sign In</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+            Don't have an account? <a href="#" id="showSignUp">Sign up</a>
+        </div>
+    </div>
+    
+    <!-- Sign Up Modal -->
+    <div class="modal" id="signUpModal" data-testid="sign-up-modal">
+        <div class="modal-header">
+            <h3>Sign Up</h3>
+            <button class="close-modal-btn" data-close="signUpModal" aria-label="Close">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+        <div class="modal-content">
+            <form id="signUpForm">
+                <div class="form-group">
+                    <label for="signUpName">Full Name</label>
+                    <input type="text" id="signUpName" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signUpEmail">Email</label>
+                    <input type="email" id="signUpEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signUpPassword">Password</label>
+                    <input type="password" id="signUpPassword" placeholder="Create a password" required>
+                </div>
+                <button type="submit" class="modal-btn" data-testid="sign-up-submit">Sign Up</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+            Already have an account? <a href="#" id="showSignIn">Sign in</a>
+        </div>
+    </div>
+    
+    <!-- Guest Selector Modal -->
+    <div class="modal" id="guestModal" data-testid="guest-modal">
+        <div class="modal-header">
+            <h3>Guests</h3>
+            <button class="close-modal-btn" data-close="guestModal" aria-label="Close">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+        <div class="modal-content">
+            <div class="guest-selector">
+                <div class="guest-row">
+                    <div class="guest-info">
+                        <h4>Adults</h4>
+                        <p>Ages 13 or above</p>
+                    </div>
+                    <div class="guest-counter">
+                        <button class="counter-btn" data-action="decrease" data-type="adults" disabled aria-label="Decrease adults">
+                            <i class="ph ph-minus"></i>
+                        </button>
+                        <span class="guest-count" id="adultsCount">1</span>
+                        <button class="counter-btn" data-action="increase" data-type="adults" aria-label="Increase adults">
+                            <i class="ph ph-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="guest-row">
+                    <div class="guest-info">
+                        <h4>Children</h4>
+                        <p>Ages 2-12</p>
+                    </div>
+                    <div class="guest-counter">
+                        <button class="counter-btn" data-action="decrease" data-type="children" disabled aria-label="Decrease children">
+                            <i class="ph ph-minus"></i>
+                        </button>
+                        <span class="guest-count" id="childrenCount">0</span>
+                        <button class="counter-btn" data-action="increase" data-type="children" aria-label="Increase children">
+                            <i class="ph ph-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button class="modal-btn" id="applyGuests" data-testid="apply-guests">Apply</button>
+        </div>
+    </div>
+    
+    <!-- Map Modal (Mobile) -->
+    <div class="map-modal" id="mapModal" data-testid="map-modal">
+        <div class="map-modal-header">
+            <h3>Map View</h3>
+            <button class="close-modal-btn" id="closeMapModal" aria-label="Close map">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+        <div class="map-modal-content">
+            <div id="mobileMap" style="width: 100%; height: 100%;"></div>
+        </div>
+    </div>
+    
+    <!-- Toast -->
+    <div class="toast" id="toast" data-testid="toast" role="alert">
+        <i class="ph ph-check-circle"></i>
+        <span id="toastMessage"></span>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
